@@ -1,0 +1,6 @@
+{
+  "name": "TerraMind AI",
+  "description": "AI-powered agricultural assistant and crop recommendation platform",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

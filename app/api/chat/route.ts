@@ -2,11 +2,12 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText } from 'ai';
 
 export async function POST(request: Request) {
-  const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+  const apiKey =
+    process.env.GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
 
   if (!apiKey) {
     return Response.json(
-      { error: 'GOOGLE_GENERATIVE_AI_API_KEY is not configured.' },
+      { error: 'GEMINI_API_KEY is not configured in the environment.' },
       { status: 500 },
     );
   }
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
 
   const google = createGoogleGenerativeAI({ apiKey });
   const result = streamText({
-    model: google('gemini-3.6-flash'),
+    model: google('gemini-2.5-flash'),
     prompt: body.prompt,
   });
 

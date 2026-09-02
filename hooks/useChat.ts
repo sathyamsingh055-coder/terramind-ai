@@ -6,6 +6,7 @@ export interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
+  timestamp?: string;
 }
 
 export function useChat() {
@@ -15,16 +16,19 @@ export function useChat() {
   const [error, setError] = useState<Error | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+  const sendMessage = useCallback(
+    async (textToSend: string) => {
+      const trimmed = textToSend.trim();
+      if (!trimmed || isLoading) return;
 
-      if (!input.trim() || isLoading) return;
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       const userMessage: Message = {
         id: Date.now().toString(),
         role: 'user',
-        content: input,
+        content: trimmed,
+        timestamp: timeStr,
       };
 
       setMessages((prev) => [...prev, userMessage]);
@@ -40,7 +44,7 @@ export function useChat() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ prompt: input }),
+          body: JSON.stringify({ prompt: trimmed }),
           signal: abortControllerRef.current.signal,
         });
 
@@ -55,7 +59,8 @@ export function useChat() {
 
         const decoder = new TextDecoder();
         let assistantMessage = '';
-        const messageId = Date.now().toString();
+        const messageId = (Date.now() + 1).toString();
+        const assistantTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         // Create initial assistant message
         setMessages((prev) => [
@@ -64,6 +69,7 @@ export function useChat() {
             id: messageId,
             role: 'assistant',
             content: '',
+            timestamp: assistantTime,
           },
         ]);
 
@@ -88,7 +94,7 @@ export function useChat() {
       } catch (err) {
         if (err instanceof Error && err.name !== 'AbortError') {
           setError(err);
-          // Remove the incomplete assistant message on error
+          // Remove incomplete assistant message on error
           setMessages((prev) => prev.filter((msg) => msg.role !== 'assistant' || msg.content !== ''));
         }
       } finally {
@@ -96,21 +102,50 @@ export function useChat() {
         abortControllerRef.current = null;
       }
     },
-    [input, isLoading]
+    [isLoading]
+  );
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      await sendMessage(input);
+    },
+    [input, sendMessage]
   );
 
   const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setInput(e.target.value);
     },
     []
   );
 
+  const clearMessages = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    setMessages([]);
+    setError(null);
+    setIsLoading(false);
+  }, []);
+
+  const stopChat = useCallback(() => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      setIsLoading(false);
+    }
+  }, []);
+
   return {
     messages,
+    setMessages,
     input,
+    setInput,
     handleInputChange,
     handleSubmit,
+    sendMessage,
+    clearMessages,
+    stopChat,
     isLoading,
     error,
   };

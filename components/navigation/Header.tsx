@@ -16,24 +16,30 @@ export function Header() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="hidden gap-8 md:flex">
+          <nav className="hidden gap-6 md:flex items-center">
             <a
-              href="#features"
+              href="/dashboard"
               className="text-sm font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white transition-colors"
             >
-              Features
+              Dashboard
             </a>
             <a
-              href="#"
+              href="/recommendation"
               className="text-sm font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white transition-colors"
             >
-              About
+              Recommendations
             </a>
             <a
-              href="#"
+              href="/assistant"
               className="text-sm font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white transition-colors"
             >
-              Contact
+              AI Assistant
+            </a>
+            <a
+              href="/dashboard"
+              className="rounded-lg bg-green-600 hover:bg-green-700 px-4 py-2 text-sm font-semibold text-white transition-colors ml-2"
+            >
+              Launch App
             </a>
           </nav>
 

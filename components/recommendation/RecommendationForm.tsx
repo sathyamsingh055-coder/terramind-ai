@@ -6,6 +6,7 @@ import { CropRecommendationInput } from '@/types/recommendation';
 import { FormInput } from './FormInput';
 import { FormSelect } from './FormSelect';
 import { SuccessState } from './SuccessState';
+import { FlaskConical, CloudSun, MapPin, Sprout, AlertCircle, ArrowLeft } from 'lucide-react';
 
 const SEASONS = [
   { value: 'spring', label: 'Spring' },
@@ -223,29 +224,17 @@ export function RecommendationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Error Alert */}
       {submitError && (
-        <div className="rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4">
+        <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 p-4">
           <div className="flex items-start gap-3">
-            <svg
-              className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
             <div>
               <h3 className="text-sm font-semibold text-red-800 dark:text-red-100">
                 Error saving farm data
               </h3>
-              <p className="text-sm text-red-700 dark:text-red-200 mt-1">
+              <p className="text-xs text-red-700 dark:text-red-200 mt-1">
                 {submitError}
               </p>
             </div>
@@ -254,10 +243,21 @@ export function RecommendationForm() {
       )}
 
       {/* Soil Section */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
-        <h2 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Soil Information
-        </h2>
+      <div className="rounded-xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-xs space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400">
+            <FlaskConical className="w-4 h-4" />
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-50">
+              Soil Chemistry & Nutrients
+            </h2>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Primary macronutrient reserves (N, P, K in ppm) and soil pH level
+            </p>
+          </div>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-2">
           <FormInput
             label="Nitrogen (N) in ppm"
@@ -296,7 +296,7 @@ export function RecommendationForm() {
             required
           />
           <FormInput
-            label="Soil pH"
+            label="Soil pH Level"
             name="ph"
             type="number"
             placeholder="e.g., 6.5"
@@ -312,10 +312,21 @@ export function RecommendationForm() {
       </div>
 
       {/* Environmental Section */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
-        <h2 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Environmental Conditions
-        </h2>
+      <div className="rounded-xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-xs space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400">
+            <CloudSun className="w-4 h-4" />
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-50">
+              Environmental Conditions
+            </h2>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Ambient temperature, relative humidity, and precipitation
+            </p>
+          </div>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-3">
           <FormInput
             label="Temperature (°C)"
@@ -362,16 +373,27 @@ export function RecommendationForm() {
       </div>
 
       {/* Farm Context Section */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
-        <h2 className="mb-6 text-xl font-semibold text-black dark:text-white">
-          Farm Context
-        </h2>
+      <div className="rounded-xl border border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-xs space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="p-2 rounded-lg bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400">
+            <MapPin className="w-4 h-4" />
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-50">
+              Farm Location & Season
+            </h2>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              Regional microclimate context and cropping season
+            </p>
+          </div>
+        </div>
+
         <div className="grid gap-4 md:grid-cols-2">
           <FormInput
-            label="Location"
+            label="Location / Region"
             name="location"
             type="text"
-            placeholder="e.g., Punjab, India"
+            placeholder="e.g., Ludhiana, Punjab"
             value={formData.location}
             onChange={(val) =>
               setFormData({ ...formData, location: val as string })
@@ -380,7 +402,7 @@ export function RecommendationForm() {
             required
           />
           <FormSelect
-            label="Season"
+            label="Cropping Season"
             name="season"
             options={SEASONS}
             value={formData.season}
@@ -393,22 +415,25 @@ export function RecommendationForm() {
         </div>
       </div>
 
-      {/* Submit Button */}
-      <div className="flex gap-4">
+      {/* Action Buttons */}
+      <div className="flex flex-col sm:flex-row items-stretch gap-3 pt-2">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 rounded-lg bg-green-600 hover:bg-green-700 disabled:bg-zinc-400 disabled:cursor-not-allowed px-6 py-3 text-center font-semibold text-white transition-colors"
+          className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 disabled:bg-zinc-400 disabled:cursor-not-allowed px-6 py-3 text-center text-sm font-semibold text-white shadow-xs transition-colors cursor-pointer"
         >
-          {isSubmitting ? 'Saving...' : 'Analyze My Farm'}
+          <Sprout className="w-4 h-4" />
+          <span>{isSubmitting ? 'Analyzing Telemetry...' : 'Generate Crop Recommendation'}</span>
         </button>
         <Link
-          href="/"
-          className="flex-1 rounded-lg border-2 border-zinc-300 dark:border-zinc-600 bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-900 px-6 py-3 text-center font-semibold text-black dark:text-white transition-colors"
+          href="/dashboard"
+          className="inline-flex items-center justify-center gap-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 px-6 py-3 text-center text-sm font-semibold text-zinc-800 dark:text-zinc-200 transition-colors cursor-pointer"
         >
-          Back to Home
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Dashboard</span>
         </Link>
       </div>
     </form>
   );
 }
+

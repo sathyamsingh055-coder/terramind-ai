@@ -40,7 +40,7 @@ interface SidebarProps {
 const NAV_ITEMS: NavItem[] = [
   {
     label: 'Dashboard',
-    href: '/app/dashboard',
+    href: '/dashboard',
     icon: (
       <svg
         fill="none"
@@ -58,7 +58,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'My Farms',
-    href: '/app/farms',
+    href: '/farms',
     icon: (
       <svg
         fill="none"
@@ -76,7 +76,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Get Recommendation',
-    href: '/app/recommendation',
+    href: '/recommendation',
     icon: (
       <svg
         fill="none"
@@ -94,7 +94,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Recommendations',
-    href: '/app/recommendations',
+    href: '/recommendations',
     icon: (
       <svg
         fill="none"
@@ -112,7 +112,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'AI Assistant',
-    href: '/app/assistant',
+    href: '/assistant',
     icon: (
       <svg
         fill="none"
@@ -130,7 +130,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     label: 'Settings',
-    href: '/app/settings',
+    href: '/settings',
     icon: (
       <svg
         fill="none"

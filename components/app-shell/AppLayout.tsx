@@ -56,7 +56,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto flex flex-col min-h-0">
           {children}
         </main>
       </div>

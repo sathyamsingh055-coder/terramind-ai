@@ -32,9 +32,12 @@ export function HeroSection() {
             >
               Get Crop Recommendation
             </a>
-            <button className="rounded-lg border-2 border-zinc-300 dark:border-zinc-600 bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-900 px-8 py-3 text-center font-semibold text-black dark:text-white transition-colors">
+            <a
+              href="/assistant"
+              className="rounded-lg border-2 border-zinc-300 dark:border-zinc-600 bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-900 px-8 py-3 text-center font-semibold text-black dark:text-white transition-colors"
+            >
               Chat with AI Assistant
-            </button>
+            </a>
           </div>
 
           {/* Decorative element */}
